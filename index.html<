@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My First Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    p {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>My Website Is Live 🚀</h1>
+    <p>This is my first step. More coming soon.</p>
+  </div>
+</body>
+</html>
