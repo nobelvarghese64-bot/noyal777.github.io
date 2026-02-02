@@ -1,80 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IronMind • Discipline Tracker</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>IronMind</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <h1>🔥 IronMind</h1>
-    <p>Consistency. Strength. Peace.</p>
-  </header>
+<!-- LOGIN SCREEN -->
+<div id="authBox" class="center">
+
+  <h1>🔥 IronMind</h1>
+
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="login()">Login</button>
+
+</div>
 
 
-  <!-- DASHBOARD -->
-  <section class="grid">
 
-    <div class="card">
-      <h2>Workout Timer</h2>
-      <h1 id="timer">00:00</h1>
-      <button onclick="startTimer()">Start</button>
-      <button onclick="stopTimer()">Stop</button>
-      <button onclick="resetTimer()">Reset</button>
-    </div>
+<!-- MAIN APP -->
+<div id="app" style="display:none">
 
-    <div class="card">
-      <h2>Streak</h2>
-      <h1 id="streak">0</h1>
-      <button onclick="completeWorkout()">Complete Workout</button>
-    </div>
-
-    <div class="card">
-      <h2>Calories</h2>
-      <input id="caloriesInput" type="number" placeholder="Enter calories">
-      <button onclick="saveCalories()">Save</button>
-      <p id="caloriesText"></p>
-    </div>
-
-    <div class="card">
-      <h2>Workout Volume</h2>
-      <input id="weight" placeholder="Weight (kg)">
-      <input id="reps" placeholder="Reps">
-      <button onclick="calcVolume()">Calculate</button>
-      <p id="volumeResult"></p>
-    </div>
-
-    <div class="card">
-      <h2>Intensity Level</h2>
-      <input type="range" min="1" max="10" id="intensity">
-      <p id="intensityValue">5</p>
-    </div>
-
-    <div class="card">
-      <h2>Adjust Workout</h2>
-      <textarea id="plan" placeholder="Write today's workout..."></textarea>
-      <button onclick="savePlan()">Save Plan</button>
-    </div>
-
-    <div class="card">
-      <h2>Ask Training Question</h2>
-      <textarea id="question"></textarea>
-      <button onclick="saveQuestion()">Save Question</button>
-    </div>
-
-    <div class="card">
-      <h2>Music Motivation 🎵</h2>
-      <input type="file" id="musicFile" accept="audio/*">
-      <audio id="player" controls></audio>
-    </div>
-
-  </section>
+<header>
+  <h2 id="welcome"></h2>
+  <button onclick="logout()">Logout</button>
+</header>
 
 
-  <script src="script.js"></script>
+<section class="grid">
+
+  <div class="card">
+    <h2>Timer</h2>
+    <h1 id="timer">00:00</h1>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="stopTimer()">Stop</button>
+    <button onclick="resetTimer()">Reset</button>
+  </div>
+
+  <div class="card">
+    <h2>Streak</h2>
+    <h1 id="streak">0</h1>
+    <button onclick="completeWorkout()">Complete</button>
+  </div>
+
+  <div class="card">
+    <h2>Volume</h2>
+    <input id="weight" placeholder="kg">
+    <input id="reps" placeholder="reps">
+    <button onclick="calcVolume()">Calculate</button>
+    <p id="volumeResult"></p>
+  </div>
+
+  <div class="card">
+    <h2>Intensity</h2>
+    <input type="range" min="1" max="10" id="intensity">
+    <p id="intensityValue">5</p>
+  </div>
+
+  <div class="card">
+    <h2>Music 🎵</h2>
+    <input type="file" id="musicFile" accept="audio/*">
+    <audio id="player" controls></audio>
+  </div>
+
+  <!-- AI COACH -->
+  <div class="card">
+    <h2>AI Coach</h2>
+    <textarea id="coachInput" placeholder="How do you feel today?"></textarea>
+    <button onclick="askCoach()">Ask Coach</button>
+    <p id="coachReply"></p>
+  </div>
+
+</section>
+
+</div>
+
+
+<script src="script.js"></script>
 </body>
 </html>
