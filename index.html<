@@ -91,3 +91,13 @@
 <script src="script.js"></script>
 </body>
 </html>
+<div class="card">
+  <h2>Workout Plan Generator</h2>
+  <select id="goal">
+    <option value="strength">Strength</option>
+    <option value="muscle">Muscle Gain</option>
+    <option value="fatloss">Fat Loss</option>
+  </select>
+  <button onclick="generatePlan()">Generate</button>
+  <pre id="planOutput"></pre>
+</div>
