@@ -324,7 +324,70 @@ HIIT 20min
 Daily walk 8k steps
 `;
   }
+/* =========================
+   DAILY WORKOUT REMINDER
+========================= */
 
+let reminderInterval = null;
+
+function setReminder(){
+
+  const time = document.getElementById("reminderTime").value;
+
+  if(!time) return alert("Pick a time first ❤️");
+
+  localStorage.setItem("reminderTime", time);
+
+  Notification.requestPermission().then(permission=>{
+    if(permission !== "granted"){
+      alert("Allow notifications for reminders");
+      return;
+    }
+
+    startReminder(time);
+
+    document.getElementById("reminderStatus").innerText =
+      "Reminder set for " + time;
+  });
+}
+
+
+function startReminder(time){
+
+  if(reminderInterval) clearInterval(reminderInterval);
+
+  reminderInterval = setInterval(()=>{
+
+    const now = new Date();
+    const current =
+      now.getHours().toString().padStart(2,"0") + ":" +
+      now.getMinutes().toString().padStart(2,"0");
+
+    if(current === time){
+      showNotification();
+    }
+
+  }, 30000); // check every 30s
+}
+
+
+function showNotification(){
+
+  new Notification("Time to train 💪", {
+    body: "No excuses. Your streak is waiting.",
+    icon: "https://cdn-icons-png.flaticon.com/512/2966/2966485.png"
+  });
+}
+
+
+/* Auto start saved reminder */
+window.addEventListener("load", ()=>{
+  const saved = localStorage.getItem("reminderTime");
+  if(saved){
+    document.getElementById("reminderTime").value = saved;
+    startReminder(saved);
+  }
+});
   document.getElementById("planOutput").innerText=plan;
 
   localStorage.setItem("savedPlan", plan);
