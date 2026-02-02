@@ -45,3 +45,15 @@ input, textarea{
   margin:5px;
   border-radius:6px;
 }
+.center{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+
+textarea{
+  height:70px;
+}
