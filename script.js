@@ -154,3 +154,83 @@ function askCoach(){
 
   coachReply.innerText = reply
 }
+/* LOADER HIDE */
+window.onload = () => {
+  setTimeout(()=>{
+    document.getElementById("loader").style.display="none"
+  },1200)
+}
+
+
+/* SOUND EFFECTS */
+function playClick(){
+  document.getElementById("clickSound").play()
+}
+
+function playSuccess(){
+  document.getElementById("successSound").play()
+}
+
+
+/* SAVE WEIGHTS PER USER */
+function saveLift(exercise, weight){
+  const user = localStorage.getItem("currentUser")
+  let data = JSON.parse(localStorage.getItem(user+"_lifts")) || {}
+
+  data[exercise] = weight
+
+  localStorage.setItem(user+"_lifts", JSON.stringify(data))
+  playSuccess()
+}
+
+
+/* LOAD WEIGHTS */
+function loadLifts(){
+  const user = localStorage.getItem("currentUser")
+  return JSON.parse(localStorage.getItem(user+"_lifts")) || {}
+}
+
+
+/* SMARTER AI COACH */
+function aiCoach(question){
+  question = question.toLowerCase()
+
+  if(question.includes("tired") || question.includes("burnout"))
+    return "Rest day. Recovery builds strength. Even warriors sleep."
+
+  if(question.includes("fat") || question.includes("cut"))
+    return "Calorie deficit + protein + steps. Consistency beats motivation."
+
+  if(question.includes("muscle") || question.includes("bulk"))
+    return "Progressive overload. Eat more. Sleep 8h. Lift heavy."
+
+  if(question.includes("sad") || question.includes("depressed"))
+    return "Training isn't punishment. It's therapy. Start small. I'm with you."
+
+  return "Train smart. Log your numbers. Small wins compound daily."
+}
+
+
+/* PERSONAL STREAK SYSTEM */
+function updateStreak(){
+  const today = new Date().toDateString()
+  const last = localStorage.getItem("lastWorkout")
+  let streak = parseInt(localStorage.getItem("streak")||0)
+
+  if(last !== today){
+    streak++
+    localStorage.setItem("streak", streak)
+    localStorage.setItem("lastWorkout", today)
+  }
+
+  document.getElementById("streakCount").innerText = streak
+}
+
+
+/* PWA INSTALL */
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt",(e)=>{
+  e.preventDefault();
+  deferredPrompt = e;
+})
