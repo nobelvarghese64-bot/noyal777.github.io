@@ -276,3 +276,56 @@ async function askRealCoach(){
 if("serviceWorker" in navigator){
   navigator.serviceWorker.register("service-worker.js");
 }
+/* WORKOUT PLAN GENERATOR */
+
+function generatePlan(){
+
+  const goal = document.getElementById("goal").value;
+  let plan="";
+
+  if(goal==="strength"){
+    plan=`
+Push:
+Bench 5x5
+OHP 4x6
+Dips 3x8
+
+Pull:
+Pullups 5x5
+Rows 4x6
+Curls 3x10
+
+Legs:
+Squat 5x5
+RDL 4x6
+Calf raises
+`;
+  }
+
+  if(goal==="muscle"){
+    plan=`
+Chest + Triceps
+Back + Biceps
+Legs
+Shoulders
+Arms
+Rest
+`;
+  }
+
+  if(goal==="fatloss"){
+    plan=`
+Full body circuits
+Pushups
+Squats
+Pullups
+Skipping
+HIIT 20min
+Daily walk 8k steps
+`;
+  }
+
+  document.getElementById("planOutput").innerText=plan;
+
+  localStorage.setItem("savedPlan", plan);
+}
