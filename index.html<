@@ -6,7 +6,14 @@
 </head>
 
 <body>
-
+<!-- Loading Screen -->
+<div id="loader" class="loader">
+  <div class="spinner"></div>
+  <p>Preparing your grind...</p>
+</div>
+<!-- Sounds -->
+<audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+<audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
 <!-- LOGIN SCREEN -->
 <div id="authBox" class="center">
 
