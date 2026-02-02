@@ -79,7 +79,7 @@
   <div class="card">
     <h2>AI Coach</h2>
     <textarea id="coachInput" placeholder="How do you feel today?"></textarea>
-    <button onclick="askCoach()">Ask Coach</button>
+    <button onclick="askRealCoach()">Ask Coach</button>
     <p id="coachReply"></p>
   </div>
 
