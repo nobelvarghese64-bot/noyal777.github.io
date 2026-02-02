@@ -272,3 +272,7 @@ async function askRealCoach(){
     replyBox.innerText = aiCoach(msg); // fallback
   }
 }
+/* OFFLINE MODE */
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js");
+}
