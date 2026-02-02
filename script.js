@@ -234,3 +234,41 @@ window.addEventListener("beforeinstallprompt",(e)=>{
   e.preventDefault();
   deferredPrompt = e;
 })
+/* ========================
+   REAL AI COACH (ChatGPT)
+======================== */
+
+const OPENAI_KEY = "PASTE_YOUR_API_KEY_HERE";
+
+async function askRealCoach(){
+
+  const msg = document.getElementById("coachInput").value;
+  const replyBox = document.getElementById("coachReply");
+
+  replyBox.innerText = "Thinking...";
+
+  try{
+    const res = await fetch("https://api.openai.com/v1/chat/completions",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer " + OPENAI_KEY
+      },
+      body:JSON.stringify({
+        model:"gpt-4o-mini",
+        messages:[
+          {role:"system",content:"You are a supportive fitness coach. Give short direct gym advice."},
+          {role:"user",content:msg}
+        ]
+      })
+    });
+
+    const data = await res.json();
+
+    replyBox.innerText = data.choices[0].message.content;
+
+  }catch(e){
+    replyBox.innerText = "Offline. Using local coach instead.";
+    replyBox.innerText = aiCoach(msg); // fallback
+  }
+}
