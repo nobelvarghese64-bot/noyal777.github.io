@@ -1,80 +1,156 @@
-/* ---------------- TIMER ---------------- */
-let seconds = 0
-let interval = null
+/* =========================
+   USER SYSTEM
+========================= */
+
+let currentUser = null
+
+function signup(){
+  let u = username.value
+  let p = password.value
+
+  if(!u || !p) return alert("Fill both")
+
+  localStorage.setItem("user_"+u, JSON.stringify({password:p, streak:0}))
+  alert("Account created! Login now.")
+}
+
+function login(){
+  let u = username.value
+  let p = password.value
+
+  let data = JSON.parse(localStorage.getItem("user_"+u))
+
+  if(!data || data.password !== p){
+    alert("Wrong login")
+    return
+  }
+
+  currentUser = u
+  authBox.style.display="none"
+  app.style.display="block"
+  welcome.innerText = "Welcome, "+u
+
+  loadUserData()
+}
+
+function logout(){
+  location.reload()
+}
+
+
+
+/* =========================
+   SAVE / LOAD USER DATA
+========================= */
+
+function saveUser(data){
+  let base = JSON.parse(localStorage.getItem("user_"+currentUser))
+  localStorage.setItem("user_"+currentUser, JSON.stringify({...base, ...data}))
+}
+
+function loadUserData(){
+  let data = JSON.parse(localStorage.getItem("user_"+currentUser))
+  streak = data.streak || 0
+  document.getElementById("streak").innerText = streak
+}
+
+
+
+/* =========================
+   TIMER
+========================= */
+
+let seconds=0
+let interval=null
 
 function startTimer(){
   if(interval) return
-  interval = setInterval(()=>{
+  interval=setInterval(()=>{
     seconds++
-    let m = String(Math.floor(seconds/60)).padStart(2,"0")
-    let s = String(seconds%60).padStart(2,"0")
-    document.getElementById("timer").innerText = `${m}:${s}`
+    let m=String(Math.floor(seconds/60)).padStart(2,"0")
+    let s=String(seconds%60).padStart(2,"0")
+    timer.innerText=`${m}:${s}`
   },1000)
 }
 
 function stopTimer(){
   clearInterval(interval)
-  interval = null
+  interval=null
 }
 
 function resetTimer(){
   stopTimer()
-  seconds = 0
-  document.getElementById("timer").innerText="00:00"
+  seconds=0
+  timer.innerText="00:00"
 }
 
 
-/* ---------------- STREAK ---------------- */
-let streak = localStorage.getItem("streak") || 0
-document.getElementById("streak").innerText = streak
+
+/* =========================
+   STREAK
+========================= */
+
+let streak=0
 
 function completeWorkout(){
   streak++
-  localStorage.setItem("streak", streak)
-  document.getElementById("streak").innerText = streak
+  document.getElementById("streak").innerText=streak
+  saveUser({streak})
 }
 
 
-/* ---------------- CALORIES ---------------- */
-function saveCalories(){
-  let c = document.getElementById("caloriesInput").value
-  localStorage.setItem("calories", c)
-  document.getElementById("caloriesText").innerText = "Saved: "+c+" kcal"
-}
 
+/* =========================
+   VOLUME
+========================= */
 
-/* ---------------- VOLUME ---------------- */
 function calcVolume(){
-  let w = document.getElementById("weight").value
-  let r = document.getElementById("reps").value
-  let volume = w*r
-  document.getElementById("volumeResult").innerText="Volume: "+volume+" kg"
+  let v=weight.value*reps.value
+  volumeResult.innerText="Volume: "+v+" kg"
 }
 
 
-/* ---------------- INTENSITY ---------------- */
-let slider = document.getElementById("intensity")
-slider.oninput = ()=> document.getElementById("intensityValue").innerText = slider.value
+
+/* =========================
+   INTENSITY
+========================= */
+
+intensity.oninput=()=> intensityValue.innerText=intensity.value
 
 
-/* ---------------- SAVE PLAN ---------------- */
-function savePlan(){
-  let plan = document.getElementById("plan").value
-  localStorage.setItem("plan", plan)
-  alert("Plan saved")
+
+/* =========================
+   MUSIC
+========================= */
+
+musicFile.onchange=(e)=>{
+  player.src=URL.createObjectURL(e.target.files[0])
 }
 
 
-/* ---------------- QUESTION ---------------- */
-function saveQuestion(){
-  let q = document.getElementById("question").value
-  localStorage.setItem("question", q)
-  alert("Question saved")
-}
 
+/* =========================
+   AI COACH (SMART LOGIC)
+========================= */
 
-/* ---------------- MUSIC ---------------- */
-document.getElementById("musicFile").onchange = function(e){
-  let file = URL.createObjectURL(e.target.files[0])
-  document.getElementById("player").src = file
+function askCoach(){
+
+  let text = coachInput.value.toLowerCase()
+  let level = intensity.value
+
+  let reply=""
+
+  if(text.includes("tired") || text.includes("sad"))
+    reply="Low energy day. Reduce volume 20%. Focus on form. Discipline beats motivation."
+
+  else if(level >= 8)
+    reply="High intensity detected. Rest longer between sets. CNS recovery matters."
+
+  else if(streak >= 7)
+    reply="7+ day streak… warrior mode activated. Proud of you. Don’t break momentum."
+
+  else
+    reply="Train steady. Progressive overload. Eat well. Sleep deep. You’re building something real."
+
+  coachReply.innerText = reply
 }
