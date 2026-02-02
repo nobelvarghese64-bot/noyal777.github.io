@@ -101,3 +101,12 @@
   <button onclick="generatePlan()">Generate</button>
   <pre id="planOutput"></pre>
 </div>
+<div class="card">
+  <h2>Workout Reminder</h2>
+
+  <input type="time" id="reminderTime">
+
+  <button onclick="setReminder()">Set Reminder</button>
+
+  <p id="reminderStatus"></p>
+</div>
