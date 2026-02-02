@@ -4,7 +4,8 @@
   <title>IronMind</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00ff88">
 <body>
 <!-- Loading Screen -->
 <div id="loader" class="loader">
